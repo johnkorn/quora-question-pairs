@@ -12,17 +12,9 @@ from string import punctuation
 from gensim.models import KeyedVectors
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
-from keras.layers import Dense, Input, LSTM, Embedding, Dropout, Activation
-from keras.layers.merge import concatenate
-from keras.models import Model
-from keras.layers.normalization import BatchNormalization
-from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
-import tensorflow as tf
 
 import sys
 
-import keras.backend.tensorflow_backend as KTF
-import keras.backend as K
 
 import pickle
 
