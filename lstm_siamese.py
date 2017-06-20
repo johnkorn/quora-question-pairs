@@ -38,8 +38,8 @@ VALIDATION_SPLIT = 0.1
 
 num_lstm = 256 #np.random.randint(175, 275)
 num_dense = 256 #np.random.randint(100, 150)
-rate_drop_lstm = 0.4 #0.15 + np.random.rand() * 0.25
-rate_drop_dense = 0.4 #0.15 + np.random.rand() * 0.25
+rate_drop_lstm = 0.5 #0.15 + np.random.rand() * 0.25
+rate_drop_dense = 0.5 #0.15 + np.random.rand() * 0.25
 
 act = 'relu'
 re_weight = True # whether to re-weight classes to fit the 17.5% share in test set
@@ -130,7 +130,7 @@ y1 = lstm_layer(embedded_sequences_2)
 distance = Lambda(soft_distance,
                   output_shape=eucl_dist_output_shape)([x1, y1])
 
-preds = Dense(1, activation='softmax')(distance)
+preds = Dense(1, activation='sigmoid')(distance)
 
 
 ########################################
@@ -143,7 +143,7 @@ else:
 
 model = Model(inputs=[sequence_1_input, sequence_2_input], \
         outputs=preds)
-model.compile(loss='cosine_proximity',
+model.compile(loss=contrastive_loss, metrics=['acc'],
         optimizer='rmsprop')
 model.summary()
 
