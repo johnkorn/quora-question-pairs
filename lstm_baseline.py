@@ -10,7 +10,7 @@ import pandas as pd
 
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
-from keras.layers import Dense, Input, LSTM, Embedding, Dropout, Activation
+from keras.layers import Dense, Input, LSTM, Embedding, Dropout, Activation, Bidirectional
 from keras.layers.merge import concatenate
 from keras.models import Model
 from keras.layers.normalization import BatchNormalization
@@ -55,7 +55,7 @@ data_2 = pickle.load(open('DATA/processed/traindata2.pkl', 'rb'))
 labels = pickle.load(open('DATA/processed/trainlabels.pkl', 'rb'))
 
 embedding_matrix = pickle.load(open('DATA/processed/w2vmatrix.pkl', 'rb'))
-nb_words = embedding_matrix.shape(0)
+nb_words = embedding_matrix.shape[0]
 
 
 test_data_1 = pickle.load(open('DATA/processed/testdata1.pkl', 'rb'))
@@ -93,7 +93,7 @@ embedding_layer = Embedding(nb_words,
         weights=[embedding_matrix],
         input_length=MAX_SEQUENCE_LENGTH,
         trainable=False)
-lstm_layer = LSTM(num_lstm, dropout=rate_drop_lstm, recurrent_dropout=rate_drop_lstm)
+lstm_layer = Bidirectional(LSTM(num_lstm, dropout=rate_drop_lstm, recurrent_dropout=rate_drop_lstm))
 
 sequence_1_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 embedded_sequences_1 = embedding_layer(sequence_1_input)
