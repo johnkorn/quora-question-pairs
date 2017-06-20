@@ -154,18 +154,18 @@ labels = np.array(labels)
 print('Shape of data tensor:', data_1.shape)
 print('Shape of label tensor:', labels.shape)
 
-pickle.dump(data_1,'DATA/processed/traindata1.pkl')
-pickle.dump(data_2,'DATA/processed/traindata2.pkl')
-pickle.dump(labels,'DATA/processed/trainlabels.pkl')
+pickle.dump(data_1, open('DATA/processed/traindata1.pkl', 'wb'))
+pickle.dump(data_2, open('DATA/processed/traindata2.pkl', 'wb'))
+pickle.dump(labels, open('DATA/processed/trainlabels.pkl', 'wb'))
 
 
 test_data_1 = pad_sequences(test_sequences_1, maxlen=MAX_SEQUENCE_LENGTH)
 test_data_2 = pad_sequences(test_sequences_2, maxlen=MAX_SEQUENCE_LENGTH)
 test_ids = np.array(test_ids)
 
-pickle.dump(test_data_1,'DATA/processed/testdata1.pkl')
-pickle.dump(test_data_2,'DATA/processed/testdata2.pkl')
-pickle.dump(test_ids,'DATA/processed/testids.pkl')
+pickle.dump(test_data_1, open('DATA/processed/testdata1.pkl', 'wb'))
+pickle.dump(test_data_2, open('DATA/processed/testdata2.pkl', 'wb'))
+pickle.dump(test_ids, open('DATA/processed/testids.pkl', 'wb'))
 
 ########################################
 ## prepare embeddings
@@ -180,6 +180,6 @@ for word, i in word_index.items():
         embedding_matrix[i] = word2vec.word_vec(word)
 print('Null word embeddings: %d' % np.sum(np.sum(embedding_matrix, axis=1) == 0))
 
-pickle.dump(embedding_matrix, 'DATA/processed/w2vmatrix.pkl')
+pickle.dump(embedding_matrix, open('DATA/processed/w2vmatrix.pkl', 'wb'))
 
 print('Data processing finished!')
